@@ -7,7 +7,8 @@ const estadoInicial = {
   descricao: '',
   preco: 0,
   fornecedor: '',
-  sucesso: false
+  sucesso: false,
+  errors: []
 }
 
 export default class CadastroProduto extends React.Component{
@@ -33,11 +34,17 @@ export default class CadastroProduto extends React.Component{
         preco:this.state.preco,
         fornecedor: this.state.fornecedor
       }
-
+      try{
       this.service.salvar(produto)
       this.limpaCampos()
       this.setState({sucesso: true})
     }
+    catch(erro){
+      const erros = erro.errors;
+      this.setState({ errors: erros})
+    }
+
+  }
 
     limpaCampos = () => {
       this.setState(estadoInicial)
@@ -54,7 +61,22 @@ export default class CadastroProduto extends React.Component{
                   </div>
                     <div class="card-body">
 
-                    { this.state.sucesso ?
+                    { this.state.errors.length > 0 &&
+                        this.state.errors.map(
+                          msg => {
+                            return(
+                              <div class="alert alert-dismissible alert-danger">
+                                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                  <strong>Erro!</strong> 
+                                    {msg}
+                              </div>
+                            )
+                          }
+                        )                                                             
+                    }
+
+              
+                  { this.state.sucesso ?
                         <div class="alert alert-dismissible alert-success">
                           <button onClick={() =>{
                             this.setState({sucesso: false})
