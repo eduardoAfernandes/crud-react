@@ -1,5 +1,6 @@
 import React from 'react';
 import ProdutoService from '../../app/produtoService';
+import { Link } from 'react-router-dom';
 
 const estadoInicial = {
   nome: '',
@@ -15,7 +16,7 @@ export default class CadastroProduto extends React.Component{
 
     state = estadoInicial;
 
-    // Instanciação do ProdutoService(Onde esta toda a logica (cadastro,consulta, etc))
+        // Instanciação do ProdutoService(Onde esta toda a logica (cadastro,consulta, etc))
     constructor(){
       super()
       this.service = new ProdutoService();
@@ -82,7 +83,7 @@ export default class CadastroProduto extends React.Component{
                           <button onClick={() =>{
                             this.setState({sucesso: false})
                           }} type="button" class="close" data-dismiss="alert">&times;</button>
-                          <strong>Pronto!</strong> Cadastro realizado com sucesso! <a href="#" class="alert-link">Ver produtos cadastrados!</a>.
+                          <strong>Pronto!</strong> Cadastro realizado com sucesso! <Link to="/consulta-produtos" class="alert-link">Ver produtos cadastrados!</Link>.
                         </div>
                         :
                         null
