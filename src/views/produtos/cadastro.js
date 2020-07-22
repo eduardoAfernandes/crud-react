@@ -15,6 +15,7 @@ export default class CadastroProduto extends React.Component{
 
     state = estadoInicial;
 
+    // Instanciação do ProdutoService(Onde esta toda a logica (cadastro,consulta, etc))
     constructor(){
       super()
       this.service = new ProdutoService();
